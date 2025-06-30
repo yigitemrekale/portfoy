@@ -35,3 +35,36 @@ window.addEventListener('scroll', () => {
 
   lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 });
+
+
+// Proje kartlarının yumuşak açılma animasyonu
+
+function revealProjects() {
+  const cards = document.querySelectorAll('.proje-card');
+  cards.forEach((card, i) => {
+    setTimeout(() => {
+      card.classList.add('visible');
+    }, i * 200); // Kartlar 200ms arayla açılır
+  });
+}
+
+window.addEventListener('load', () => {
+  revealProjects();
+});
+
+// İstersen scroll ile tekrar animasyon için (isteğe bağlı)
+
+window.addEventListener('scroll', () => {
+  const cards = document.querySelectorAll('.proje-card');
+  const triggerBottom = window.innerHeight * 0.85;
+
+  cards.forEach(card => {
+    const cardTop = card.getBoundingClientRect().top;
+
+    if(cardTop < triggerBottom) {
+      card.classList.add('visible');
+    } else {
+      card.classList.remove('visible');
+    }
+  });
+});

@@ -674,3 +674,452 @@ section p {
     height: 160px;
   }
 }
+
+
+/* Eğitim Başlığı */
+.edu-title {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  background: linear-gradient(120deg, #a955ff, #ea51ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: typing 1.5s ease-out;
+  /* Sola yaslı olanları kaldır */
+  border-left: none;
+  padding-left: 0;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center; /* Ortala */
+  width: 100%;
+}
+
+/* Kart alanı */
+.edu-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center; /* Ortala */
+  margin: 0 auto;
+}
+
+/* Eğitim Kartı */
+.edu-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 5px solid #a955ff;
+  border-radius: 12px;
+  padding: 20px 25px;
+  width: 320px;
+  box-shadow: 0 0 15px #a955ff22;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideFadeIn 0.8s ease forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+.edu-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 20px #a955ff88;
+}
+
+.edu-card h2 {
+  color: #a955ff;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.edu-card p {
+  color: #ccc;
+  font-size: 0.95em;
+  margin: 6px 0;
+}
+
+/* Animasyonlar */
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typing {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+.timeline-container-horizontal {
+  position: relative;
+  display: flex;
+  gap: 40px;
+  padding: 40px 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.timeline-line-horizontal {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #a955ff, #ea51ff);
+  z-index: 0;
+  border-radius: 2px;
+}
+
+/* Timeline noktaları (amblem) */
+.timeline-icon-horizontal {
+  position: relative;
+  z-index: 1;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #121217;
+  border: 3px solid #a955ff;
+  box-shadow: 0 0 10px #a955ff88;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+  transition: box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.timeline-icon-horizontal img {
+  max-width: 60px;
+  max-height: 60px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+/* Kart içeriği */
+.timeline-content-horizontal {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #a955ff;
+  border-radius: 16px;
+  padding: 20px 30px;
+  width: 280px;
+  color: #eee;
+  box-shadow: 0 0 15px #a955ff44;
+  transition: box-shadow 0.3s ease;
+}
+
+.timeline-content-horizontal h2 {
+  color: #a955ff;
+  margin-bottom: 10px;
+  font-size: 1.3em;
+}
+
+.timeline-content-horizontal p {
+  color: #ccc;
+  margin: 4px 0;
+  font-size: 1em;
+}
+
+/* Hover efekt */
+.timeline-content-horizontal:hover {
+  box-shadow: 0 0 25px #ea51ffcc;
+}
+
+/* Animasyon */
+.timeline-item-horizontal {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideInRight 0.7s forwards;
+}
+
+/* Her kartın animasyon gecikmesi için inline style veya JS ile set edilebilir */
+
+/* Animasyon keyframe */
+@keyframes slideInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive: mobilde alt alta, timeline dikey */
+@media (max-width: 768px) {
+  .timeline-container-horizontal {
+    flex-direction: column;
+    overflow-x: visible;
+    padding-left: 40px;
+  }
+
+  .timeline-line-horizontal {
+    top: 0;
+    left: 50px;
+    width: 4px;
+    height: 100%;
+    border-radius: 2px;
+  }
+
+  .timeline-item-horizontal {
+    flex-direction: row;
+    margin-bottom: 40px;
+    animation: slideInUp 0.7s forwards;
+  }
+
+  .timeline-icon-horizontal {
+    margin-bottom: 0;
+    margin-right: 20px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .timeline-content-horizontal {
+    width: auto;
+    padding: 15px 20px;
+  }
+}
+
+@keyframes slideInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Projeler Başlığı */
+.projeler-title {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  background: linear-gradient(120deg, #a955ff, #ea51ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+  animation: typing 1.5s ease-out;
+}
+/* Projeler container grid ve ortalama */
+.projeler-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  width: 100%;  /* kapsayıcı tam genişlikte */
+  margin: 0 auto; /* otomatik yatay margin */
+  padding: 20px 0;
+  box-sizing: border-box;
+}
+
+
+
+/* Kart stili */
+.proje-card {
+  background: linear-gradient(145deg, #1e1e2f, #2a223e);
+  border-radius: 20px;
+  padding: 30px 25px 40px;
+  box-shadow:
+    0 0 15px #a955ff55,
+    0 0 25px #ea51ff33;
+  color: #eee;
+  text-align: center;
+  max-width: 320px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards;
+  animation-delay: var(--delay, 0s);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Kart hover animasyonu */
+.proje-card:hover {
+  box-shadow:
+    0 0 25px #ea51ffaa,
+    0 0 40px #a955ffcc,
+    0 0 70px #ea51ffcc;
+  transform: translateY(-10px);
+}
+
+/* Logo (üstte) */
+.proje-card img.logo {
+  max-width: 100px;
+  margin-bottom: 18px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px #a955ff99;
+  transition: transform 0.3s ease;
+}
+
+.proje-card:hover img.logo {
+  transform: scale(1.05);
+}
+
+/* Başlık */
+.proje-card h2 {
+  font-size: 1.6em;
+  margin-bottom: 12px;
+  color: #ea51ff;
+  font-weight: 700;
+}
+/* Açıklama paragrafı */
+.proje-card p {
+  font-size: 1em;
+  color: #ccc;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+/* Teknoloji ikonları container */
+.tech-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+/* Teknoloji ikonları stili */
+.tech-icons img {
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(0 0 1px #a955ffcc);
+  transition: transform 0.3s ease;
+}
+
+.tech-icons img:hover {
+  transform: scale(1.2) rotate(10deg);
+}
+
+
+/* Buton */
+.btn-proje-link {
+  display: inline-block;
+  padding: 12px 28px;
+  background: linear-gradient(45deg, #a955ff, #ea51ff);
+  color: white;
+  font-weight: 700;
+  border-radius: 40px;
+  text-decoration: none;
+  box-shadow:
+    0 0 15px #a955ffbb,
+    0 0 25px #ea51ffcc;
+  transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+  user-select: none;
+  cursor: pointer;
+}
+
+.btn-proje-link:hover {
+  background: linear-gradient(45deg, #ea51ff, #a955ff);
+  box-shadow:
+    0 0 25px #ea51ffee,
+    0 0 40px #a955ffee;
+  transform: scale(1.05);
+}
+
+/* Fade ve yukarı kayma animasyonu */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .projeler-container {
+    grid-template-columns: 1fr;
+    padding: 10px 20px;
+  }
+
+  .proje-card {
+    max-width: 100%;
+    padding: 25px 20px 30px;
+  }
+}
+
+/* Proje kartlarının görünme animasyonu */
+.proje-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Görünür hale gelince */
+.proje-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+  box-shadow: 0 0 20px #a955ffaa;
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.6s ease;
+}
+/* Neon glow arka plan animasyonu */
+@keyframes neon-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 5px #a955ff,
+      0 0 10px #a955ff,
+      0 0 20px #a955ff,
+      0 0 40px #ea51ff,
+      0 0 80px #ea51ff;
+    border-color: #a955ff;
+  }
+  50% {
+    box-shadow:
+      0 0 10px #ea51ff,
+      0 0 20px #ea51ff,
+      0 0 30px #a955ff,
+      0 0 60px #a955ff,
+      0 0 100px #a955ff;
+    border-color: #ea51ff;
+  }
+}
+
+.proje-card {
+  position: relative;
+  background: #121217; /* koyu tema arka plan */
+  border: 2px solid #a955ff;
+  border-radius: 12px;
+  padding: 20px 30px;
+  margin-bottom: 25px;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  
+  /* Neon animasyonu varsayılan kapalı */
+  animation: none;
+  box-shadow: none;
+}
+
+/* Neon glow animasyonu görünürken */
+.proje-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: neon-glow 3s ease-in-out infinite alternate;
+}
+
+.social-icons.tech-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.social-icons.tech-icons a img {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 0 1px #a955ffcc);
+  transition: transform 0.3s ease;
+}
+
+.social-icons.tech-icons a:hover img {
+  transform: scale(1.2) rotate(10deg);
+}
