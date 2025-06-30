@@ -1,0 +1,676 @@
+/* Genel ayarlar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  background-color: #121217; /* Koyu ama siyah değil */
+  color: #eee;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+/* Genel scrollbar stili (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 10px; /* Genişlik */
+}
+
+/* Scrollbar track (arka plan) */
+::-webkit-scrollbar-track {
+  background: transparent; /* Track görünmez */
+}
+
+/* Scrollbar thumb (kaydırma parçası) */
+::-webkit-scrollbar-thumb {
+  background: #a955ff;
+  border-radius: 10px;
+  box-shadow: 0 0 8px 2px #a955ffaa; /* Hafif ışıldama/glow efekti */
+  transition: background-color 0.3s ease;
+}
+
+/* Scrollbar thumb hover efekti (isteğe bağlı) */
+::-webkit-scrollbar-thumb:hover {
+  background: #d67cff;
+  box-shadow: 0 0 12px 4px #d67cffcc;
+}
+
+
+
+
+/* Linkler */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Navbar üstte sabit, ortalanmış */
+nav.navbar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 60px;
+  background: rgba(18, 18, 23, 0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  padding: 0 25px;
+  z-index: 1000;
+  border-radius: 30px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  transition: top 0.3s ease-in-out;
+  max-width: 95vw;
+  width: fit-content;
+}
+
+/* Marka adı solda, biraz küçük */
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.3em;
+  color: #a955ff;
+  margin-right: 30px;
+  white-space: nowrap;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* Parlama animasyonu için keyframes */
+@keyframes shine {
+  0% {
+    background-position: -200%;
+  }
+  100% {
+    background-position: 200%;
+  }
+}
+
+/* Parlak, hareketli parlama efekti */
+.shining-text {
+  background: linear-gradient(
+    120deg,
+    #a955ff,
+    #f3a1ff,
+    #a955ff
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s linear infinite;
+}
+
+
+/* Menü yatay, yan yana */
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+  margin-left: auto;
+  padding-left: 0;
+}
+
+.navbar-menu li {
+  position: relative;
+  width: 50px;
+  transition: width 0.4s ease;
+  height: 50px;
+  border-radius: 25px;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0; /* kesinlikle padding kaldır */
+  transition: width 0.5s ease;
+}
+
+
+/* Degrade arka plan efektleri */
+.navbar-menu li::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 25px;
+  background: linear-gradient(45deg, var(--i), var(--j));
+  opacity: 0;
+  transition: 0.5s;
+  z-index: 1;
+}
+
+.navbar-menu li::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  background: linear-gradient(45deg, var(--i), var(--j));
+  filter: blur(10px);
+  opacity: 0;
+  transition: 0.5s;
+  z-index: 0;
+}
+
+.navbar-menu li:hover {
+  width: 130px;
+  justify-content: flex-start;
+  padding-left: 15px;
+}
+
+/* Hover efektinde degrade görünür */
+.navbar-menu li:hover::before {
+  opacity: 1;
+}
+
+.navbar-menu li:hover::after {
+  opacity: 0.5;
+}
+
+/* İkonlar */
+.navbar-menu li .icon {
+  font-size: 22px;
+  color: #777;
+  transition: transform 0.3s, color 0.3s;
+  flex-shrink: 0;             /* Küçülmesini engelle */
+  margin: 0;                  /* Varsayılan marginleri kaldır */
+  display: flex;
+  align-items: center;        /* İkonu kendi içinde ortala */
+  justify-content: center;
+  width: 24px;                /* Sabit genişlik ver */
+  height: 24px;               /* Sabit yükseklik ver */
+}
+
+
+.navbar-menu li:hover .icon {
+  transform: scale(0);
+  color: #fff;
+  width: 0;       /* Genişliği sıfırla */
+  margin: 0;      /* Margin kaldır */
+  padding: 0;     /* Padding kaldır */
+  overflow: hidden;
+}
+
+
+/* Yazı (title) */
+.navbar-menu li .title {
+  margin-left: 0;
+  padding-left: 0; /* padding kaldır */
+  max-width: calc(100% - 40px); /* İkon ve biraz boşluk için */
+    box-sizing: border-box;
+  color: #fff;
+  font-size: 0.95em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform-origin: left center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: scale(0);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Bu önemli */
+  width: auto;
+  padding: 0; /* padding varsa kaldır */
+}
+/* Hoverda yazı görünür */
+.navbar-menu li:hover .title {
+  transform: scale(1);
+  opacity: 1;
+  /* margin ve padding ekleme yok */
+}
+
+/* Menü linkleri tam kapsayıcı */
+.navbar-menu li a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 12px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Ana içerik üstten padding navbar yüksekliği kadar */
+main {
+  padding: 80px 40px 40px 40px;
+  color: #eee;
+}
+
+/* Bölüm aralıkları */
+section {
+  margin-bottom: 100px;
+}
+
+section h1 {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
+section p {
+  font-size: 1.1em;
+  line-height: 1.5;
+  color: #ccc;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+  nav.navbar {
+    padding: 0 15px;
+    width: 95vw;
+  }
+
+ .navbar-brand {
+  font-weight: 700;
+  font-size: 1.3em;
+  color: #a955ff;
+  margin-right: 30px;
+  white-space: nowrap;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+  .navbar-menu li {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+
+  .navbar-menu li:hover {
+    width: 100px;
+  }
+
+  .navbar-menu li .icon {
+    font-size: 1em;
+  }
+
+  .navbar-menu li .title {
+    left: 45px;
+    font-size: 0.85em;
+  }
+}
+
+
+
+/* Profil kart içi */
+#profil-kart .profile-pic {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  margin-bottom: 20px;
+  box-shadow: 0 0 15px #a955ff88;
+}
+
+#profil-kart h2 {
+  color: #fff;
+  font-size: 1.8em;
+  margin-bottom: 5px;
+}
+
+#profil-kart p {
+  color: #ccc;
+  margin-bottom: 20px;
+  font-size: 1em;
+}
+
+/* Sosyal ikonlar yatay */
+.social-icons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding-left: 0;
+  list-style: none;
+}
+
+.social-icons li a {
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #262626;
+  font-size: 24px;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid #fff;
+  transition: 0.5s;
+}
+
+/* Temaya uygun degrade renkler sosyal ikon arkaplanları */
+.social-icons li:nth-child(1) a:hover { /* Linkedin */
+  background: linear-gradient(45deg, #0a66c2, #a955ff);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 0 10px #a955ffaa;
+}
+
+.social-icons li:nth-child(2) a:hover { /* Github */
+  background: linear-gradient(45deg, #333, #a955ff);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 0 10px #a955ffaa;
+}
+
+.social-icons li:nth-child(3) a:hover { /* Instagram */
+  background: linear-gradient(45deg, #f09433, #a955ff, #bc1888, #f09433);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 0 10px #a955ffaa;
+}
+
+/* İkon dönme efekti */
+.social-icons li a .icon {
+  transition: color 0.5s, transform 0.5s;
+}
+
+.social-icons li a:hover .icon {
+  transform: rotateY(360deg);
+  color: #fff;
+}
+
+/* Box’un arka plan efektleri ve diğer stiller (attığın koddan) */
+
+#profil-kart .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.container {
+  width: 100vw;         /* Ekranın tüm genişliği */
+  height: 100vh;        /* Ekranın tüm yüksekliği */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;           /* Padding kaldırıldı */
+  margin: 0;            /* Margin kaldırıldı */
+  box-shadow: none;     /* Varsa gölge kaldırıldı */
+  border: none;         /* Varsa border kaldırıldı */
+  background: transparent; /* Arkaplan varsa kaldırılabilir */
+}
+
+
+
+#profil-kart .box {
+  position: relative;
+  width: 360px;    /* genişlik artırıldı */
+  height: 520px;   /* yükseklik artırıldı */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 30px;
+  transition: 0.5s;
+  color: #fff;
+  overflow: hidden;
+  cursor: default;
+
+  box-shadow: none;  /* gölge kaldırıldı */
+  border: none;      /* varsa sınır kaldırıldı */
+  background: rgba(255, 255, 255, 0); /* çok hafif şeffaf arka plan */
+  border-radius: 8px; /* hafif köşe yuvarlama */
+}
+
+
+#profil-kart .box::before,
+#profil-kart .box::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50px;
+  width: 50%;
+  height: 100%;
+  border-radius: 8px;
+  transform: skewX(15deg);
+  transition: 0.5s;
+  z-index: 0;
+}
+
+#profil-kart .box::after {
+  filter: blur(30px);
+  left: 50px;
+  background: linear-gradient(315deg, #a955ff88, #ea51ff88);
+}
+
+#profil-kart .box::before {
+  background: linear-gradient(315deg, #a955ffdd, #ea51ffdd);
+}
+
+#profil-kart .box:hover::before,
+#profil-kart .box:hover::after {
+  transform: skewX(0deg);
+  left: 20px;
+  width: calc(100% - 90px);
+}
+
+#profil-kart .box span {
+  display: block;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+#profil-kart .box span::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 0; height: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: 0.1s;
+  animation: animate 2s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+#profil-kart .box:hover span::before {
+  top: -50px;
+  left: 50px;
+  width: 100px;
+  height: 100px;
+  opacity: 1;
+}
+
+#profil-kart .box span::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 100%; height: 100%;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: 0.5s;
+  animation: animate 2s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  animation-delay: -1s;
+}
+
+#profil-kart .box:hover span:after {
+  bottom: -50px;
+  right: 50px;
+  width: 100px;
+  height: 100px;
+  opacity: 1;
+}
+
+/* Animasyon keyframes */
+@keyframes animate {
+  0%, 100% {
+    transform: translateY(10px);
+  }
+  50% {
+    transform: translate(-10px);
+  }
+}
+
+/* İçerik padding'ini biraz artır */
+#profil-kart .content {
+  position: relative;
+  left: 0;
+  padding: 20px 40px 60px 40px; /* alt padding artırıldı buton için */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 1;
+  transition: 0.5s;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#profil-kart .box:hover .content {
+  left: -25px;
+  padding: 60px 40px;
+}
+
+
+/* CV indir butonu */
+#profil-kart .btn-cv {
+  margin-top: 20px;
+  padding: 12px 30px;
+  font-weight: 700;
+  font-size: 1em;
+  color: #fff;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Hover efekti: beyazdan tema rengine (#a955ff) dönüş */
+#profil-kart .btn-cv:hover {
+  background: #a955ff;
+  border-color: #a955ff;
+  color: #fff;
+  box-shadow: 0 0 10px #a955ff99;
+}
+
+
+
+
+@keyframes slideInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#profil-kart.animated {
+  animation: slideInDown 0.8s ease forwards;
+}
+
+
+
+.hakkimda-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 20px;
+  background: #1a1a1f;
+  border-radius: 16px;
+  box-shadow: 0 0 30px #a955ff22;
+  animation: fadeInUp 1s ease both;
+}
+
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 1100px;
+  gap: 40px;
+}
+
+.about-image img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 0 15px #a955ff99;
+  transition: transform 0.4s ease;
+}
+
+.about-image img:hover {
+  transform: scale(1.05);
+}
+
+.about-text {
+  flex: 1;
+  color: #ddd;
+}
+
+.about-text h1 {
+  font-size: 2.4em;
+  color: #a955ff;
+  margin-bottom: 20px;
+}
+
+.about-text p {
+  font-size: 1.1em;
+  line-height: 1.7;
+  color: #ccc;
+}
+
+/* Fade in animasyonu */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobil uyum */
+@media (max-width: 768px) {
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-text h1 {
+    font-size: 2em;
+  }
+
+  .about-image img {
+    width: 160px;
+    height: 160px;
+  }
+}
